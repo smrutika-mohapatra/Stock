@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Stock Broker Client Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(128, 128, 128, 0.386);
+        }
+
+        .container {
+            width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-image: url(https://m.economictimes.com/thumb/msid-108515750,width-1600,height-900,resizemode-4,imgsize-30008/stock-market-has-rallied-to-all-time-high-valuation-and-the-broader-market-is-too-expensive-is-that-true.jpg);
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .stock-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .stock-list li {
+            padding: 10px;
+            border-bottom: 2px solid teal;
+        }
+
+        .stock-list li:last-child {
+            border-bottom: none;
+        }
+        button{
+            padding: 7px 20px;
+            border: none;
+            background: none;
+            box-shadow: 0px 0px 5px white;
+            margin-left: 50px;
+            color: white;
+            font-size: 17px;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Stock Broker Client Dashboard</h2>
+        <h3>Welcome to {{ Smrutika }}!</h3>
+        <ul class="stock-list" id="stock-list">
+            <li>
+                <label for="GOOG">GOOG:</label>
+                <span id="GOOG-price">$0.00</span>
+                <button class="subscribe-btn" data-stock="GOOG">Subscribe</button>
+            </li>
+            <li>
+                <label for="TSLA">TSLA:</label>
+                <span id="TSLA-price">$0.00</span>
+                <button class="subscribe-btn" data-stock="TSLA">Subscribe</button>
+            </li>
+            <li>
+                <label for="AMZN">AMZN:</label>
+                <span id="AMZN-price">$0.00</span>
+                <button class="subscribe-btn" data-stock="AMZN">Subscribe</button>
+            </li>
+            <li>
+                <label for="META">META:</label>
+                <span id="META-price">$0.00</span>
+                <button class="subscribe-btn" data-stock="META">Subscribe</button>
+            </li>
+            <li>
+                <label for="NVDA">NVDA:</label>
+                <span id="NVDA-price">$0.00</span>
+                <button class="subscribe-btn" data-stock="NVDA">Subscribe</button>
+            </li>
+        </ul>
+        <h1></h1>
+
+        <script>
+            const user = localStorage.getItem('user');
+            const stockList = document.getElementById('stock-list');
+            const subscribeBtns = document.querySelectorAll('.subscribe-btn');
+            const head = document.querySelector("h1")
+
+            // Simulate stock price updates
+            setInterval(() => {
+                const stocks = ['GOOG', 'TSLA', 'AMZN', 'META', 'NVDA'];
+                stocks.forEach((stock) => {
+                    const price = Math.random() * 100;
+                    document.getElementById(`${stock}-price`).textContent = `$${price.toFixed(2)}`;
+                });
+            }, 1000);
+
+            // Handle subscribe button clicks
+            subscribeBtns.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    const stock = e.target.dataset.stock;
+                    let table = document.createElement("table")
+                    table.innerHTML = `<table>
+            <tr >
+                <th >Stock Name</th>
+                <th>Stock Price</th>
+            </tr>
+           
+            <tr>
+                <td style="padding-top:20px">${stock}</td>
+                <td style="padding-left: 30px;padding-top:20px">$${Math.random() * 100}</td>
+            </tr>
+
+        </table>`
+                    // let deleteBtn = document.querySelector("button")
+                    let tr=document.querySelectorAll("tr")
+                    table.style.display = "flex"
+                    table.style.justifyContent = "center"
+                    table.style.alignItems = "center"
+                    table.style.border = "1px solid teal"
+                    table.style.width = "450px"
+                    table.style.height = "100px"
+                    table.style.marginLeft = "35%"
+                    table.style.marginTop = "20px"
+                    table.style.backgroundColor="teal"
+                    table.style.color="white"
+                    table.style.boxShadow="0px 0px 7px "
+                    table.style.borderRadius="7px"
+                    
+
+                    let h1 = document.createElement("h1")
+                    let h4 = document.createElement("h4")
+
+                    h1.innerText = stock
+                    // console.log(`Subscribed to ${stock}`);
+                    h1.style.marginLeft = "30px"
+                    h4.style.marginLeft = "30px"
+
+                    // Update the dashboard with the subscribed stock
+                    document.getElementById(`${stock}-price`).textContent = `$${Math.random() * 100}`;
+                    h4.innerText = `$${Math.random() * 100}`
+                    document.body.append(table)
+                });
+            });
+
+
+
+
+        </script>
+    </div>
+</body>
+
+</html>
